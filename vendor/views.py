@@ -15,7 +15,8 @@ class VendorCreateAPIView(APIView):
         serializer = VendorProfileSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"status": "True", "message": "Vendor created successfully!"}, status=status.HTTP_201_CREATED)
+            return Response({"status": "True", "message": "Vendor created successfully!"},
+                            status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -34,7 +35,8 @@ class VendorDetailAPIView(APIView):
     def get(self, request, vendor_code):
         vendor = get_object_or_404(VendorProfile, vendor_code=vendor_code)
         serializer = VendorProfileSerializer(vendor)
-        return Response({"status": "True", "vendor": serializer.data}, status=status.HTTP_201_CREATED)
+        return Response({"status": "True", "vendor": serializer.data},
+                        status=status.HTTP_201_CREATED)
 
 
 class VendorUpdateAPIView(APIView):
@@ -45,7 +47,8 @@ class VendorUpdateAPIView(APIView):
         serializer = VendorProfileSerializer(vendor, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response({"status": "True", "updated_vendor": serializer.data}, status=status.HTTP_201_CREATED)
+            return Response({"status": "True", "updated_vendor": serializer.data},
+                            status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -55,4 +58,5 @@ class VendorDeleteAPIView(APIView):
     def delete(self, request, vendor_code):
         vendor = get_object_or_404(VendorProfile, vendor_code=vendor_code)
         vendor.delete()
-        return Response({"status": "True", "message": "Vendor deleted successfully"}, status=status.HTTP_201_CREATED)
+        return Response({"status": "True", "message": "Vendor deleted successfully"},
+                        status=status.HTTP_201_CREATED)

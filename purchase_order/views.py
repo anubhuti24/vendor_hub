@@ -8,21 +8,7 @@ from purchase_order.models import PurchaseOrderModel
 from purchase_order.serializers import PurchaseOrderSerializer
 
 
-class PurchaseOrderCreateAPIView(APIView):
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        serializer = PurchaseOrderSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(
-                {"status": "True", "message": "Purchase Order created successfully!"},
-                status=status.HTTP_201_CREATED,
-            )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class PurchaseOrderListAPIView(APIView):
+class PurchaseOrderCreateList(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -41,33 +27,44 @@ class PurchaseOrderListAPIView(APIView):
             return Response(
                 {
                     "status": "False",
-                    "message": "An error occurred while processing your request.",
+                    "message": str(e),
                 },
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
+    def post(self, request):
+        try:
+            serializer = PurchaseOrderSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(
+                    {"status": "True", "message": "Purchase Order created successfully!"},
+                    status=status.HTTP_201_CREATED,
+                )
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            return Response({"status": "False", "message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class PurchaseOrderDetailAPIView(APIView):
+
+class PurchaseOrderFetchUpdateDelete(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request, po_id):
         try:
             purchase_order = PurchaseOrderModel.objects.get(pk=po_id)
             serializer = PurchaseOrderSerializer(purchase_order)
+            return Response(
+                {"status": "True", "purchase order": serializer.data},
+                status=status.HTTP_200_OK,
+            )
+
         except ObjectDoesNotExist:
             return Response(
                 {"status": "False", "message": "Object does not exists."},
                 status=status.HTTP_404_NOT_FOUND,
             )
-
-        return Response(
-            {"status": "True", "purchase order": serializer.data},
-            status=status.HTTP_200_OK,
-        )
-
-
-class PurchaseOrderUpdateAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+        except Exception as e:
+            return Response({"status": "False", "message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def put(self, request, po_id):
         try:
@@ -82,16 +79,15 @@ class PurchaseOrderUpdateAPIView(APIView):
                     },
                     status=status.HTTP_200_OK,
                 )
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
         except ObjectDoesNotExist:
             return Response(
                 {"status": "False", "message": "Object does not exist."},
                 status=status.HTTP_404_NOT_FOUND,
             )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-class PurchaseOrderDeleteAPIView(APIView):
-    permission_classes = [IsAuthenticated]
+        except Exception as e:
+            return Response({"status": "False", "message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     def delete(self, request, po_id):
         try:
@@ -106,3 +102,5 @@ class PurchaseOrderDeleteAPIView(APIView):
                 {"status": "False", "message": "Object does not exist."},
                 status=status.HTTP_404_NOT_FOUND,
             )
+        except Exception as e:
+            return Response({"status": "False", "message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

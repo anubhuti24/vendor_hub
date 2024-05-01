@@ -24,5 +24,5 @@ urlpatterns = [
     path("api-token-auth/", views.obtain_auth_token, name="api-token-auth"),
 
     path("api/", include("vendor.urls")),
-    path("purchase_orders/", include("purchase_order.urls")),
+    path("api/", include("purchase_order.urls")),
 ]

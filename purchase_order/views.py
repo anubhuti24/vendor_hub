@@ -1,4 +1,5 @@
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -105,3 +106,16 @@ class PurchaseOrderFetchUpdateDelete(APIView):
             )
         except Exception as e:
             return Response({"status": "False", "message": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class PurchaseOrderAcknowledge(APIView):
+    def post(self, request, po_id):
+        try:
+            purchase_order = PurchaseOrderModel.objects.get(po_number=po_id)
+            purchase_order.acknowledgment_date = timezone.now()
+            purchase_order.save()
+            return Response({'status': 'True', 'message': 'Purchase order acknowledged.'}, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response({'status': 'False', 'message': 'Purchase order not found.'}, status=status.HTTP_404_NOT_FOUND)
+        except Exception as e:
+            return Response({'status': 'False', 'message': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

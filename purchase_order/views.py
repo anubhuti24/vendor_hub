@@ -68,7 +68,8 @@ class PurchaseOrderFetchUpdateDelete(APIView):
 
     def put(self, request, po_id):
         try:
-            purchase_order = PurchaseOrderModel.objects.get(pk=po_id)
+            purchase_order = PurchaseOrderModel.objects.filter(po_number=po_id).first()
+            print("Purchase order", purchase_order)
             serializer = PurchaseOrderSerializer(purchase_order, data=request.data)
             if serializer.is_valid():
                 serializer.save()

@@ -10,23 +10,20 @@ def update_performance_metrics(sender, instance, created, **kwargs):
     if not created:
         # Update performance metrics when PurchaseOrder is updated
         if instance.status == PurchaseOrderModel.COMPLETED:
-            print("Here")
             update_on_time_delivery_rate(instance)
             update_quality_rating_avg(instance)
         # Calculated upon any change in PO status
         update_fulfillment_rate(instance)
+        update_average_response_time(instance)
 
 
 @receiver(pre_save, sender=PurchaseOrderModel)
 def update_acknowledgment_date(sender, instance, **kwargs):
-    if instance.pk is None:
-        # Set acknowledgment_date for new PurchaseOrder
+
+    # Set acknowledgment_date for new PurchaseOrder
+    if instance.acknowledgment_date is None:
         instance.acknowledgment_date = timezone.now()
-    else:
-        # Update average_response_time when PurchaseOrder is updated
-        if instance.acknowledgment_date is None:
-            instance.acknowledgment_date = timezone.now()
-            update_average_response_time(instance)
+        update_average_response_time(instance)
 
 
 def update_on_time_delivery_rate(instance):
@@ -49,9 +46,17 @@ def update_quality_rating_avg(instance):
 
 def update_average_response_time(instance):
     vendor = instance.vendor
-    completed_orders = PurchaseOrderModel.objects.filter(vendor=vendor, status=PurchaseOrderModel.COMPLETED)
-    total_response_time = sum((order.acknowledgment_date - order.issue_date).total_seconds() for order in completed_orders)
-    average_response_time = total_response_time / completed_orders.count() if completed_orders.count() > 0 else 0
+    all_orders = PurchaseOrderModel.objects.filter(vendor=vendor)
+    total_response_time = 0
+    acknowledged_count = 0
+
+    for order in all_orders:
+        if order.acknowledgment_date is not None:
+            response_time = (order.issue_date - order.acknowledgment_date).total_seconds() / 3600
+            total_response_time += response_time
+            acknowledged_count += 1
+
+    average_response_time = total_response_time / acknowledged_count if acknowledged_count > 0 else 0
     vendor.average_response_time = average_response_time
     vendor.save()
 

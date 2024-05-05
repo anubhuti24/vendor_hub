@@ -20,7 +20,7 @@ class PurchaseOrderModel(models.Model):
     status = models.CharField(max_length=10, choices=OrderStatus, default=PENDING)
     quality_rating = models.FloatField()
     issue_date = models.DateTimeField()
-    acknowledgment_date = models.DateTimeField()
+    acknowledgment_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
         return f"{self.po_number}"

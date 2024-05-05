@@ -3,10 +3,15 @@ from django.dispatch import receiver
 from django.utils import timezone
 
 from purchase_order.models import PurchaseOrderModel
+from vendor.models import VendorProfile, HistoricalModel
+
+historical_data_saved = False
 
 
 @receiver(post_save, sender=PurchaseOrderModel)
 def update_performance_metrics(sender, instance, created, **kwargs):
+    global historical_data_saved
+
     if not created:
         # Update performance metrics when PurchaseOrder is updated
         if instance.status == PurchaseOrderModel.COMPLETED:
@@ -16,14 +21,23 @@ def update_performance_metrics(sender, instance, created, **kwargs):
         update_fulfillment_rate(instance)
         update_average_response_time(instance)
 
+        if not historical_data_saved:
+            save_historical_data(instance.vendor)
+            historical_data_saved = True
+
 
 @receiver(pre_save, sender=PurchaseOrderModel)
 def update_acknowledgment_date(sender, instance, **kwargs):
+    global historical_data_saved
 
     # Set acknowledgment_date for new PurchaseOrder
     if instance.acknowledgment_date is None:
         instance.acknowledgment_date = timezone.now()
         update_average_response_time(instance)
+
+    if not historical_data_saved:
+        save_historical_data(instance.vendor)
+        historical_data_saved = True
 
 
 def update_on_time_delivery_rate(instance):
@@ -69,3 +83,14 @@ def update_fulfillment_rate(instance):
     fulfillment_rate = (fulfilled_orders.count() / all_orders.count()) * 100 if all_orders.count() > 0 else 0
     vendor.fulfillment_rate = fulfillment_rate
     vendor.save()
+
+
+def save_historical_data(vendor):
+    HistoricalModel.objects.create(
+        vendor=vendor,
+        date=timezone.now(),
+        on_time_delivery_rate=vendor.on_time_delivery_rate,
+        quality_rating_avg=vendor.quality_rating_avg,
+        average_response_time=vendor.average_response_time,
+        fulfillment_rate=vendor.fulfillment_rate
+    )

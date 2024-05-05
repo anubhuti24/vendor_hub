@@ -16,4 +16,9 @@ class VendorAdmin(admin.ModelAdmin):
 @admin.register(HistoricalModel)
 class HistoricDataAdmin(admin.ModelAdmin):
     list_display = ["vendor", "date", "on_time_delivery_rate", "quality_rating_avg",
-                    "average_response_time", "fulfillment_rate"]
+                    "average_response_time_in_hours", "fulfillment_rate"]
+
+    def average_response_time_in_hours(self, obj):
+        return f"{obj.average_response_time:.2f} hours"
+
+    average_response_time_in_hours.short_description = "Average Response Time (in hours)"

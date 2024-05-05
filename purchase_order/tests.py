@@ -14,6 +14,10 @@ class PurchaseOrderAPITestCase(TestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token}')
 
     def test_purchase_order_endpoints(self):
+        """
+        Test Cases for create, get, update, delete a purchase order and acknowledge a purchase order
+        """
+
         # Create a vendor
         vendor_response = self.client.post('/api/vendors/', {
             "name": "James Willie",

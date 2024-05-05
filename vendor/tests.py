@@ -13,6 +13,10 @@ class VendorAPITestCase(TestCase):
         self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token}')
 
     def test_vendors_endpoints(self):
+        """
+        Test Cases to create, get, update, delete a vendor and retrieve vendor's performance
+        """
+
         # Test POST request to create a new vendor
         response = self.client.post('/api/vendors/', {
               "name": "James Willie",
@@ -52,6 +56,10 @@ class VendorAPITestCase(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_nonexistent_vendor_fetch_update_delete(self):
+        """
+        Test Cases for 404 Not Found exception
+        """
+
         # Test handling of nonexistent vendor
         response = self.client.get('/api/vendors/VENDOR092/')
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)

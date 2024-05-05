@@ -1,9 +1,10 @@
+from django.core.validators import RegexValidator
 from django.db import models
 
 
 class VendorProfile(models.Model):
-    name = models.CharField(max_length=20)
-    contact_details = models.TextField()
+    name = models.CharField(max_length=20, validators=[RegexValidator(r'^[a-zA-Z\s]+$', 'Name should only contain letters and spaces.')])
+    contact_details = models.TextField(validators=[RegexValidator(r'^[\d\+\-\(\)\s]+$', 'Contact details should only contain digits, spaces, and allowed characters (+, -, ())')])
     address = models.TextField()
     vendor_code = models.CharField(max_length=50, unique=True, primary_key=True)
     on_time_delivery_rate = models.FloatField()

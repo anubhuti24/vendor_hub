@@ -8,7 +8,10 @@ class VendorAdmin(admin.ModelAdmin):
                     "on_time_delivery_rate", "quality_rating_avg", "average_response_time_in_hours", "fulfillment_rate"]
 
     def average_response_time_in_hours(self, obj):
-        return f"{obj.average_response_time:.2f} hours"
+        if obj.average_response_time is not None:
+            return f"{obj.average_response_time:.2f} hours"
+        else:
+            return None
 
     average_response_time_in_hours.short_description = "Average Response Time (in hours)"
 
@@ -19,6 +22,9 @@ class HistoricDataAdmin(admin.ModelAdmin):
                     "average_response_time_in_hours", "fulfillment_rate"]
 
     def average_response_time_in_hours(self, obj):
-        return f"{obj.average_response_time:.2f} hours"
+        if obj.average_response_time is not None:
+            return f"{obj.average_response_time:.2f} hours"
+        else:
+            return None
 
     average_response_time_in_hours.short_description = "Average Response Time (in hours)"

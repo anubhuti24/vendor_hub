@@ -7,13 +7,13 @@ class VendorProfile(models.Model):
     contact_details = models.TextField(validators=[RegexValidator(r'^[\d\+\-\(\)\s]+$', 'Contact details should only contain digits, spaces, and allowed characters (+, -, ())')])
     address = models.TextField()
     vendor_code = models.CharField(max_length=50, unique=True, primary_key=True)
-    on_time_delivery_rate = models.FloatField()
-    quality_rating_avg = models.FloatField()
-    average_response_time = models.FloatField()
-    fulfillment_rate = models.FloatField()
+    on_time_delivery_rate = models.FloatField(default=0.0, blank=True)
+    quality_rating_avg = models.FloatField(default=0.0, blank=True)
+    average_response_time = models.FloatField(default=0.0, blank=True)
+    fulfillment_rate = models.FloatField(default=0.0, blank=True)
 
     def __str__(self):
-        return f"{self.name} {self.vendor_code}"
+        return f"{self.vendor_code}"
 
 
 class HistoricalModel(models.Model):

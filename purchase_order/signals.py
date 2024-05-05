@@ -34,6 +34,7 @@ def update_acknowledgment_date(sender, instance, **kwargs):
     if instance.acknowledgment_date is None:
         instance.acknowledgment_date = timezone.now()
         update_average_response_time(instance)
+    update_fulfillment_rate(instance)
 
     if not historical_data_saved:
         save_historical_data(instance.vendor)

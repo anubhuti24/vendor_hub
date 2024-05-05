@@ -90,7 +90,6 @@ class VendorPerformanceMetrics(APIView):
     def get(self, request, vendor_id):
         try:
             vendor = VendorProfile.objects.get(vendor_code=vendor_id)
-            serializer = VendorProfileSerializer(vendor)
             performance_data = {
                 'on_time_delivery_rate': vendor.on_time_delivery_rate,
                 'quality_rating_avg': vendor.quality_rating_avg,

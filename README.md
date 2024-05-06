@@ -47,6 +47,12 @@ Login to the django admin route using provided username and password of the supe
 
 Import the provided JSON link into a tool for API testing, such as Postman. This JSON file contains detailed descriptions of all the API endpoints. You can then thoroughly test each endpoint to ensure its functionality.
 
+Firstly, generate the token using username and password of the superuser using API endpoint `/api-token-auth/`
+
+This token needs to be provided in the Authorization Header.
+
+Run all the apis using auth token.
+
 # Test Suite
 
 ## Test the purchase order APIs

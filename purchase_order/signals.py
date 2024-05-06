@@ -23,7 +23,7 @@ def update_performance_metrics(sender, instance, created, **kwargs):
 
         if not created:
             if instance.acknowledgment_date is not None:
-                update_average_response_time(instance.vendor)
+                update_average_response_time(instance)
 
         if not historical_data_saved:
             save_historical_data(instance.vendor)

@@ -56,6 +56,7 @@ class VendorFetchUpdateDelete(APIView):
     def put(self, request, vendor_code):
         try:
             vendor = VendorProfile.objects.get(pk=vendor_code)
+            print(vendor)
             serializer = VendorProfileSerializer(vendor, data=request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -77,7 +78,7 @@ class VendorFetchUpdateDelete(APIView):
             return Response({"status": "True", "message": "Vendor deleted successfully"}, status=status.HTTP_200_OK)
         except ObjectDoesNotExist:
             return Response(
-                {"status": "False", "message": "Object does not exist."},
+                {"status": "False", "message": "Vendor does not exist."},
                 status=status.HTTP_404_NOT_FOUND,
             )
         except Exception as e:

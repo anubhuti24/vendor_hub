@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "8eed34cd-21b6-408f-86f8-0d43be27136b",
+		"name": "vendor_management_system",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24975406"
+	},
+	"item": [
+		{
+			"name": "purchase-orders",
+			"item": [
+				{
+					"name": "create-purchase-order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"po_number\": \"PO15\",\n  \"vendor\": \"VENDOR001\",\n  \"order_date\": \"2024-05-01T12:00:00Z\",\n  \"delivery_date\": \"2024-05-10T12:00:00Z\",\n  \"items\": [\n    {\n      \"name\": \"Item 1\",\n      \"quantity\": 10,\n      \"unit_price\": 20\n    },\n    {\n      \"name\": \"Item 2\",\n      \"quantity\": 5,\n      \"unit_price\": 30\n    }\n  ],\n  \"quantity\": 10,\n  \"status\": \"PENDING\",\n  \"quality_rating\": 3.5,\n  \"issue_date\": \"2024-05-10T12:00:00Z\",\n  \"acknowledgment_date\": null\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/purchase_orders/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"purchase_orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "po-list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/purchase_orders/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"purchase_orders",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-po",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"po_number\": \"PO11\",\n  \"vendor\": \"VENDOR001\",\n  \"order_date\": \"2024-05-01T12:00:00Z\",\n  \"delivery_date\": \"2024-05-10T12:00:00Z\",\n  \"items\": [\n    {\n      \"name\": \"Item 10\",\n      \"quantity\": 10,\n      \"unit_price\": 20\n    }\n  ],\n  \"quantity\": 10,\n  \"status\": \"COMPLETED\",\n  \"quality_rating\": 3.5,\n  \"issue_date\": \"2024-05-10T12:00:00Z\",\n  \"acknowledgment_date\": \"2024-05-15T12:00:00Z\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/purchase_orders/PO11/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"purchase_orders",
+								"PO11",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-specific-po",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/purchase_orders/PO125/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"purchase_orders",
+								"PO125",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-po",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/purchase_orders/PO114/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"purchase_orders",
+								"PO114",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "po-acknowledge",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/purchase_orders/PO18/acknowledge/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"purchase_orders",
+								"PO18",
+								"acknowledge",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "vendors",
+			"item": [
+				{
+					"name": "create vendors",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Sample vendor\",\n  \"contact_details\": \"6789675432\",\n  \"address\": \"Robert House\",\n  \"vendor_code\": \"VENDOR002\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/vendors/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"vendors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vendors list",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/vendors/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"vendors",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-specific-vendor",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/vendors/VENDOR001/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"vendors",
+								"VENDOR001",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-vendor",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Vendor Name\",\n  \"contact_details\": \"8989898989\",\n  \"address\": \"QPO\",\n  \"vendor_code\": \"VENDOR001\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseurl}}/api/vendors/VENDOR001/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"vendors",
+								"VENDOR001",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove-vendor",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/vendors/VENDOR002/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"vendors",
+								"VENDOR002",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "vendor-performance",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token 7daf0ec871bf90c577ad2b8deed6c990d47aa17e",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseurl}}/api/vendors/VENDOR003/performance/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api",
+								"vendors",
+								"VENDOR003",
+								"performance",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user-auth",
+			"item": [
+				{
+					"name": "generate-token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "aaa",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "111",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseurl}}/api-token-auth/",
+							"host": [
+								"{{baseurl}}"
+							],
+							"path": [
+								"api-token-auth",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

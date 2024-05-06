@@ -43,6 +43,9 @@ Login to the django admin route using provided username and password of the supe
 
 🚀 Now, you have successfully logged in as an admin and can test the APIs and database interaction.
 
+# Documented APIs
+
+Import the provided JSON link into a tool for API testing, such as Postman. This JSON file contains detailed descriptions of all the API endpoints. You can then thoroughly test each endpoint to ensure its functionality.
 
 # Test Suite
 

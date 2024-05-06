@@ -61,7 +61,7 @@ class PurchaseOrderFetchUpdateDelete(APIView):
 
         except ObjectDoesNotExist:
             return Response(
-                {"status": "False", "message": "Object does not exists."},
+                {"status": "False", "message": "Purchase order does not exists."},
                 status=status.HTTP_404_NOT_FOUND,
             )
         except Exception as e:
@@ -85,7 +85,7 @@ class PurchaseOrderFetchUpdateDelete(APIView):
 
         except ObjectDoesNotExist:
             return Response(
-                {"status": "False", "message": "Object does not exist."},
+                {"status": "False", "message": "Purchase order does not exist."},
                 status=status.HTTP_404_NOT_FOUND,
             )
         except Exception as e:

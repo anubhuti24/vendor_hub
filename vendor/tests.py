@@ -22,11 +22,7 @@ class VendorAPITestCase(TestCase):
               "name": "James Willie",
               "contact_details": "7677778788",
               "address": "6/12 Robert House",
-              "vendor_code": "VENDOR001",
-              "on_time_delivery_rate": 0.95,
-              "quality_rating_avg": 4.5,
-              "average_response_time": 2.5,
-              "fulfillment_rate": 0.98
+              "vendor_code": "VENDOR001"
         })
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -39,11 +35,7 @@ class VendorAPITestCase(TestCase):
             "name": "XYZ",
             "contact_details": "9897806985",
             "address": "6/12 Robert House",
-            "vendor_code": "VENDOR001",
-            "on_time_delivery_rate": 0.95,
-            "quality_rating_avg": 4.5,
-            "average_response_time": 2.5,
-            "fulfillment_rate": 0.98
+            "vendor_code": "VENDOR001"
         })
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -68,11 +60,7 @@ class VendorAPITestCase(TestCase):
             "name": "Alice Walker",
             "contact_details": "9897806985",
             "address": "",
-            "vendor_code": "VENDOR001",
-            "on_time_delivery_rate": 0.95,
-            "quality_rating_avg": 4.5,
-            "average_response_time": 2.5,
-            "fulfillment_rate": 0.98
+            "vendor_code": "VENDOR001"
         })
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 

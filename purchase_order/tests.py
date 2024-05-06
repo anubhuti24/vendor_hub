@@ -23,11 +23,7 @@ class PurchaseOrderAPITestCase(TestCase):
             "name": "James Willie",
             "contact_details": "9899888898",
             "address": "6/12 Robert House",
-            "vendor_code": "VENDOR001",
-            "on_time_delivery_rate": 0.95,
-            "quality_rating_avg": 4.5,
-            "average_response_time": 2.5,
-            "fulfillment_rate": 0.98
+            "vendor_code": "VENDOR001"
         })
         self.assertEqual(vendor_response.status_code, status.HTTP_201_CREATED)
 
